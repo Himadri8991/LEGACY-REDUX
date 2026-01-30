@@ -5,10 +5,15 @@ import { getProductById, products } from "@/data/products";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+}, []);
+
   const product = getProductById(id || "");
   const [formData, setFormData] = useState({
     name: "",

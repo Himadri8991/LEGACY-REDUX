@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -14,6 +16,10 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -21,6 +27,16 @@ const Navigation = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+
+  const handleNavClick = (hash: string) => {
+    if (location.pathname !== "/") {
+      navigate(`/${hash}`);
+    } else {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
 
   return (
     <motion.header
@@ -36,36 +52,40 @@ const Navigation = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex flex-col items-start">
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex flex-col items-start"
+          >
             <span className="text-xl md:text-2xl font-serif tracking-[0.3em] text-primary font-semibold">
               LEGACY REDUX
             </span>
             <span className="text-[10px] md:text-xs tracking-[0.2em] text-muted-foreground font-sans uppercase">
               The World on Your Wrist
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
+                onClick={() => handleNavClick(link.href)}
                 className="text-sm tracking-wider font-sans text-foreground/80 hover:text-primary transition-colors duration-300 link-underline"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </div>
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <a
-              href="#contact"
+            <button
+              onClick={() => handleNavClick("#contact")}
               className="btn-premium px-6 py-2.5 text-sm font-sans tracking-wider text-primary-foreground rounded-sm transition-all duration-300 hover:shadow-lg"
             >
               Book Now
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}

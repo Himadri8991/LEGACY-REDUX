@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Legacy Redux Design System - Luxury Heritage Watch Brand */
+
+@layer base {
+  :root {
+    /* Core Background Colors - Deep Luxury */
+    --background: 220 20% 4%;
+    --foreground: 45 30% 92%;
+
+    /* Card surfaces with subtle warmth */
+    --card: 220 18% 7%;
+    --card-foreground: 45 30% 92%;
+
+    /* Popover - slightly elevated */
+    --popover: 220 16% 9%;
+    --popover-foreground: 45 30% 92%;
+
+    /* Primary - Rich Gold */
+    --primary: 42 75% 50%;
+    --primary-foreground: 220 20% 4%;
+
+    /* Secondary - Warm Burgundy */
+    --secondary: 0 45% 25%;
+    --secondary-foreground: 45 30% 92%;
+
+    /* Muted - Subtle Charcoal */
+    --muted: 220 15% 12%;
+    --muted-foreground: 45 15% 55%;
+
+    /* Accent - Copper/Bronze */
+    --accent: 25 60% 45%;
+    --accent-foreground: 45 30% 92%;
+
+    /* Destructive - Deep Red */
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 45 30% 92%;
+
+    /* Borders & Inputs */
+    --border: 42 30% 20%;
+    --input: 220 15% 15%;
+    --ring: 42 75% 50%;
+
+    --radius: 0.375rem;
+
+    /* Sidebar (if needed) */
+    --sidebar-background: 220 18% 6%;
+    --sidebar-foreground: 45 30% 92%;
+    --sidebar-primary: 42 75% 50%;
+    --sidebar-primary-foreground: 220 20% 4%;
+    --sidebar-accent: 220 15% 12%;
+    --sidebar-accent-foreground: 45 30% 92%;
+    --sidebar-border: 42 30% 15%;
+    --sidebar-ring: 42 75% 50%;
+
+    /* Custom Brand Colors */
+    --gold: 42 75% 50%;
+    --gold-light: 45 80% 65%;
+    --gold-dark: 38 70% 35%;
+    --burgundy: 0 45% 25%;
+    --burgundy-light: 0 40% 35%;
+    --ivory: 45 30% 92%;
+    --ivory-dark: 40 20% 80%;
+    --charcoal: 220 20% 8%;
+    --charcoal-light: 220 15% 15%;
+    --teal: 175 60% 35%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(42 75% 50%) 0%, hsl(38 70% 35%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(220 20% 4%) 0%, hsl(220 18% 8%) 50%, hsl(0 45% 8%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 18% 10%) 0%, hsl(220 20% 6%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(42 75% 50%) 0%, hsl(45 80% 65%) 50%, hsl(42 75% 50%) 100%);
+    
+    /* Shadows */
+    --shadow-gold: 0 0 60px -15px hsl(42 75% 50% / 0.4);
+    --shadow-elegant: 0 25px 80px -20px hsl(0 0% 0% / 0.6);
+    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 100px 20px hsl(42 75% 50% / 0.15);
+  }
+
+  .dark {
+    /* Same as root - dark by default */
+    --background: 220 20% 4%;
+    --foreground: 45 30% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* Gold text gradient */
+  .text-gradient-gold {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Elegant underline animation */
+  .link-underline {
+    @apply relative inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-primary origin-bottom-right transition-transform duration-300 scale-x-0;
+  }
+
+  .link-underline:hover::after {
+    @apply origin-bottom-left scale-x-100;
+  }
+
+  /* Card with gold border glow */
+  .card-glow {
+    @apply relative;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-glow::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.2) 0%, transparent 50%);
+  }
+
+  .card-glow:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Premium button styles */
+  .btn-premium {
+    @apply relative overflow-hidden;
+    background: var(--gradient-gold);
+  }
+
+  .btn-premium::before {
+    content: '';
+    @apply absolute inset-0 bg-white/20 -translate-x-full skew-x-12 transition-transform duration-700;
+  }
+
+  .btn-premium:hover::before {
+    @apply translate-x-full;
+  }
+
+  /* Outline button with gold */
+  .btn-outline-gold {
+    @apply border border-primary/50 text-primary hover:bg-primary/10 transition-all duration-300;
+  }
+
+  /* Section divider */
+  .section-divider {
+    @apply w-24 h-px mx-auto bg-gradient-to-r from-transparent via-primary to-transparent;
+  }
+
+  /* Image with gold frame effect */
+  .image-frame {
+    @apply relative;
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .image-frame::before {
+    content: '';
+    @apply absolute -inset-1 rounded-lg opacity-50;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, transparent 50%, hsl(var(--primary)) 100%);
+    z-index: -1;
+  }
+}
+
+@layer utilities {
+  /* Scroll reveal animation */
+  .reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-1000;
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary) / 0) 0%,
+      hsl(var(--primary) / 0.3) 50%,
+      hsl(var(--primary) / 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Pulse glow */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px 0px hsl(var(--primary) / 0.2); }
+    50% { box-shadow: 0 0 40px 10px hsl(var(--primary) / 0.4); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  /* Grain texture overlay */
+  .grain {
+    position: relative;
+  }
+
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+}

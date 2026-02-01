@@ -34,14 +34,8 @@ import watchbose from "@/assets/watch-bose.jpg";
 import watchbose1 from "@/assets/watch-bose1.jpg";
 import watchodia1 from "@/assets/watch-odia1.jpg";
 import watchodia2 from "@/assets/watch-odia2.jpg";
+import watchodia3 from "@/assets/watch-odia3.jpg";
 
-
-import watchDetail1 from "@/assets/watch-detail-1.jpg";
-import watchDetail2 from "@/assets/watch-detail-2.jpg";
-import watchLifestyle1 from "@/assets/watch-lifestyle-1.jpg";
-import watchClassic1 from "@/assets/watch-classic-1.jpg";
-import watchMinimal1 from "@/assets/watch-minimal-1.jpg";
-import tableClockDetail from "@/assets/table-clock-detail.jpg";
 import { V } from "vitest/dist/chunks/reporters.d.BFLkQcL6.js";
 
 
@@ -174,7 +168,7 @@ export const products: Product[] = [
     tagline: "Our first venture beyond Bengal",
     description:
       "ଏବେ ସମୟ ଚାଲିବ ଓଡ଼ିଆ ଷ୍ଟାଇଲ୍‌ରେ — Now time will run in Odia style. This watch is a cultural tribute to Odisha, featuring Odia script numerals on an elegant teal dial. A celebration of India's diverse heritage.",
-    images: [watchOdia, watchodia1, watchodia2],
+    images: [watchOdia, watchodia3, watchodia1, watchodia2],
     price: "Coming Soon",
     badge: "Upcoming",
     category: "watch",

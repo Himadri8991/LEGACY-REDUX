@@ -6,10 +6,15 @@ import ProductImageGallery from "@/components/ProductImageGallery";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProductBookingForm from "@/components/product/ProductBookingForm";
+import { useState, useEffect } from "react";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = getProductById(id || "");
+
+    useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+}, []);
 
   if (!product) {
     return (

@@ -5,22 +5,11 @@ import { getProductById, products } from "@/data/products";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { useState, useEffect } from "react";
+import ProductBookingForm from "@/components/product/ProductBookingForm";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-  window.scrollTo({ top: 0, behavior: "instant" });
-}, []);
-
   const product = getProductById(id || "");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
 
   if (!product) {
     return (
@@ -35,12 +24,6 @@ const ProductDetail = () => {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `Booking Inquiry: ${product.name}`;
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0APhone: ${formData.phone}%0D%0AProduct: ${product.name} (${product.price})%0D%0AMessage: ${formData.message}`;
-    window.location.href = `mailto:legacyredux.2025@gmail.com?subject=${subject}&body=${body}`;
-  };
 
   const relatedProducts = products
     .filter((p) => p.id !== product.id && p.category === product.category)
@@ -251,84 +234,12 @@ const ProductDetail = () => {
                 Book Your {product.name}
               </h2>
               <p className="text-muted-foreground text-center mb-8 font-sans">
-                Fill the form below and we'll get back to you within 24 hours.
+                Complete your order with secure payment options.
               </p>
 
-              <form
-                onSubmit={handleSubmit}
-                className="bg-card/50 rounded-lg border border-primary/10 p-8 space-y-6"
-              >
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-sans text-foreground">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-sans text-foreground">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-sans text-foreground">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans"
-                    placeholder="+91 XXXXX XXXXX"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-sans text-foreground">
-                    Additional Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans resize-none"
-                    placeholder="Any special requests or questions..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-premium w-full py-4 text-sm font-sans tracking-wider text-primary-foreground rounded-sm"
-                >
-                  Submit Booking Request
-                </button>
-              </form>
+              <div className="bg-card/50 rounded-lg border border-primary/10 p-6 md:p-8">
+                <ProductBookingForm product={product} />
+              </div>
             </motion.div>
           </section>
         )}

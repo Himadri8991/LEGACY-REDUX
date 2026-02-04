@@ -18,11 +18,16 @@ interface ProductBookingFormProps {
 
 const ProductBookingForm = ({ product }: ProductBookingFormProps) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  pincode: "",
+  message: "",
+});
+
   const [quantity, setQuantity] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -39,26 +44,39 @@ const ProductBookingForm = ({ product }: ProductBookingFormProps) => {
     
     const subject = `Order: ${product.name} x${quantity}`;
     const body = `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
+    Name: ${formData.name}
+    Email: ${formData.email}
+    Phone: ${formData.phone}
 
-Order Details:
-- Product: ${product.name}
-- Quantity: ${quantity}
-- Unit Price: ${product.price}
-- Total: ₹${totalAmount.toLocaleString("en-IN")}
-- Payment Method: ${paymentMethod || "Not selected"}
+    Delivery Address:
+    ${formData.address}
+    ${formData.city}, ${formData.state} - ${formData.pincode}
 
-Message: ${formData.message || "None"}
-    `.trim();
+    Order Details:
+    - Product: ${product.name}
+    - Quantity: ${quantity}
+    - Unit Price: ${product.price}
+    - Total: ₹${totalAmount.toLocaleString("en-IN")}
+    - Payment Method: ${paymentMethod || "Not selected"}
+
+    Message: ${formData.message || "None"}
+        `.trim();
 
     window.location.href = `mailto:legacyredux.2025@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setIsSubmitted(true);
   };
 
   const handleReset = () => {
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      pincode: "",
+      message: "",
+    });
     setQuantity(1);
     setPaymentMethod(null);
     setIsSubmitted(false);
@@ -172,6 +190,50 @@ Message: ${formData.message || "None"}
           className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans text-sm"
           placeholder="Phone Number *"
         />
+
+        <div className="space-y-4">
+  <label className="block text-xs text-muted-foreground font-sans uppercase tracking-[0.3em]">
+    Delivery Address
+  </label>
+
+  <textarea
+    rows={3}
+    required
+    value={formData.address}
+    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+    className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans text-sm resize-none"
+    placeholder="House No, Street, Area *"
+  />
+
+  <div className="grid md:grid-cols-3 gap-4">
+    <input
+      type="text"
+      required
+      value={formData.city}
+      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+      className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans text-sm"
+      placeholder="City *"
+    />
+
+    <input
+      type="text"
+      required
+      value={formData.state}
+      onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+      className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans text-sm"
+      placeholder="State *"
+    />
+
+    <input
+      type="text"
+      required
+      value={formData.pincode}
+      onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+      className="w-full px-4 py-3 bg-background border border-primary/20 rounded-sm focus:border-primary focus:outline-none transition-colors font-sans text-sm"
+      placeholder="PIN Code *"
+    />
+  </div>
+</div>
 
         <textarea
           rows={3}
